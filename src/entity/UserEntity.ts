@@ -13,5 +13,5 @@ module.exports = database.define('User', {
     Description: {
         type: DataTypes.STRING,
         allowNull: false,
-    }
+    },
 });
