@@ -1,25 +1,26 @@
-const UserEntity = require("../entity/UserEntity");
+// const UserService = require("../services/UserService");
+import UserService from '../services/UserService';
 import { Request, Response, NextFunction } from "express";
 import StatusCodes from "http-status-codes";
 
 module.exports = {
     async ListAll(req: Request, res: Response) {
         try {
-            const usersList = await UserEntity.findAll();
+            const usersList = await UserService.LisyAll();
             return res.status(StatusCodes.OK).json(usersList);
         } catch (error) {
-            return console.log("Erro na lista de usuários: " + error);
+            return res.status(StatusCodes.BAD_REQUEST).send(error);
         }
     },
 
-    async GetById(req: Request, res: Response) {
-        try {
-            const user = await UserEntity.findByPk(req.params.Id);
-            return res.status(StatusCodes.OK).json(user);
-        } catch (error) {
-            return console.log("Erro ao buscar usuário: " + req.params.Id);
-        }
-    },
+    // async GetById(req: Request, res: Response) {
+    //     try {
+    //         const user = await UserService.GetById(req.params.Id);
+    //         return res.status(StatusCodes.OK).json(user);
+    //     } catch (error) {
+    //         return res.status(StatusCodes.BAD_REQUEST).send(error);
+    //     }
+    // },
 
     async addUser(req: Request, res: Response, next: NextFunction) {
         try {
@@ -30,10 +31,10 @@ module.exports = {
             });
             return console.log("Registro adicionado com sucesso.");
         
-        } catch (error) {
-            return console.log("Erro ao adicionar usuário: " + error);
-        }
-    },
+    //     } catch (error) {
+    //         return res.status(StatusCodes.BAD_REQUEST).send(error);
+    //     }
+    // },
 
     async updateUser(req: Request, res: Response) {
         try {
@@ -45,20 +46,19 @@ module.exports = {
                 userEntity.save();
             }
 
-            return console.log("Registro alterado com sucesso.");
+    //         return console.log("Registro alterado com sucesso.");
         
-        } catch (error) {
-            return console.log("Erro ao alterar usuário: " + error);
-        }
-    },
+    //     } catch (error) {
+    //         return res.status(StatusCodes.BAD_REQUEST).send(error);
+    //     }
+    // },
 
-    async deleteUser(req: Request, res: Response) {
-        try {
-            const userEntity = await UserEntity.findByPk(req.body.Id);
-            await userEntity.destroy();
-            return console.log("Registro excluído com sucesso.");
-        } catch (error) {
-            return console.log("Erro ao deletar usuário: " + error);
-        }
-    },
+    // async deleteUser(req: Request, res: Response) {
+    //     try {
+    //         const userEntity = await UserService.deleteUser(req.body.Id);
+    //         return res.status(StatusCodes.OK).send("Registro excluído com sucesso.");
+    //     } catch (error) {
+    //         return res.status(StatusCodes.BAD_REQUEST).send(error);
+    //     }
+    // },
 };
