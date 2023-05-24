@@ -22,32 +22,32 @@ module.exports = {
     //     }
     // },
 
-    async addUser(req: Request, res: Response, next: NextFunction) {
-        try {
-            const user = await UserEntity.create({
-                Name: req.body.Name,
-                Email: req.body.Email,
-                Nascimento: req.body.Nascimento
-            });
-            return console.log("Registro adicionado com sucesso.");
-        
+    // async addUser(req: Request, res: Response, next: NextFunction) {
+    //     try {
+    //         const user = await UserEntity.create({
+    //             Name: req.body.Name,
+    //             Email: req.body.Email,
+    //             Nascimento: req.body.Nascimento
+    //         });
+    //         return console.log("Registro adicionado com sucesso.");
+
     //     } catch (error) {
     //         return res.status(StatusCodes.BAD_REQUEST).send(error);
     //     }
     // },
 
-    async updateUser(req: Request, res: Response) {
-        try {
-            const userEntity = await UserEntity.findByPk(req.body.Id);
-            if (userEntity) {
-                userEntity.Name= req.body.Name,
-                userEntity.Email= req.body.Email,
-                userEntity.Nascimento= req.body.Nascimento
-                userEntity.save();
-            }
+    // async updateUser(req: Request, res: Response) {
+    //     try {
+    //         const userEntity = await UserEntity.findByPk(req.body.Id);
+    //         if (userEntity) {
+    //             userEntity.Name = req.body.Name,
+    //                 userEntity.Email = req.body.Email,
+    //                 userEntity.Nascimento = req.body.Nascimento
+    //             userEntity.save();
+    //         }
 
     //         return console.log("Registro alterado com sucesso.");
-        
+
     //     } catch (error) {
     //         return res.status(StatusCodes.BAD_REQUEST).send(error);
     //     }
@@ -61,4 +61,4 @@ module.exports = {
     //         return res.status(StatusCodes.BAD_REQUEST).send(error);
     //     }
     // },
-};
+}
