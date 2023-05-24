@@ -24,7 +24,9 @@ module.exports = {
     async addUser(req: Request, res: Response, next: NextFunction) {
         try {
             const user = await UserEntity.create({
-                Description: req.body.Description,
+                Name: req.body.Name,
+                Email: req.body.Email,
+                Nascimento: req.body.Nascimento
             });
             return console.log("Registro adicionado com sucesso.");
         
@@ -37,7 +39,9 @@ module.exports = {
         try {
             const userEntity = await UserEntity.findByPk(req.body.Id);
             if (userEntity) {
-                userEntity.Description = req.body.Description;
+                userEntity.Name= req.body.Name,
+                userEntity.Email= req.body.Email,
+                userEntity.Nascimento= req.body.Nascimento
                 userEntity.save();
             }
 

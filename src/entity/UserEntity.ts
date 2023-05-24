@@ -10,8 +10,16 @@ module.exports = database.define('User', {
         allowNull: false,
         primaryKey: true,
     },
-    Description: {
+    Name: {
         type: DataTypes.STRING,
+        allowNull: false,
+    },
+    Email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    Nascimento: {
+        type: DataTypes.DATE,
         allowNull: false,
     }
 });

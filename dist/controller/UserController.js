@@ -8,43 +8,49 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const UserEntity = require("../entity/UserEntity");
+const http_status_codes_1 = __importDefault(require("http-status-codes"));
 module.exports = {
     ListAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const usersList = yield UserEntity.findAll();
-                console.log(usersList);
-                return res.json(usersList);
+                return res.status(http_status_codes_1.default.OK).json(usersList);
             }
             catch (error) {
-                return console.log("Erro na lista de produtos: " + error);
+                return console.log("Erro na lista de usuários: " + error);
             }
         });
     },
     GetById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const user = yield UserEntity.findByPk(req.body.Id);
-                return res.json(user);
+                const user = yield UserEntity.findByPk(req.params.Id);
+                return res.status(http_status_codes_1.default.OK).json(user);
             }
             catch (error) {
-                return console.log("Erro na lista de produtos: " + error);
+                return console.log("Erro ao buscar usuário: " + req.params.Id);
             }
         });
     },
     addUser(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log("insert");
-                const user = yield UserEntity.create({
-                    Description: req.params.Description
-                });
-                return console.log("Registro adicionado com sucesso. " + res.json(user));
+                console.log(req.body);
+                // const user = await UserEntity.create({
+                //     Name: req.body.Name,
+                //     Email: req.body.Email,
+                //     Nascimento: req.body.Nascimento
+                // });
+                // return console.log("Registro adicionado com sucesso.");
+                return req.body;
             }
             catch (error) {
-                return console.log("Erro ao adicionar produto: " + error);
+                return console.log("Erro ao adicionar usuário: " + error);
             }
         });
     },
@@ -53,13 +59,15 @@ module.exports = {
             try {
                 const userEntity = yield UserEntity.findByPk(req.body.Id);
                 if (userEntity) {
-                    userEntity.Description = req.body.Description;
+                    userEntity.Name = req.body.Name,
+                        userEntity.Email = req.body.Email,
+                        userEntity.Nascimento = req.body.Nascimento;
                     userEntity.save();
                 }
-                return console.log("Registro alterado com sucesso. " + res.json(UserEntity));
+                return console.log("Registro alterado com sucesso.");
             }
             catch (error) {
-                return console.log("Erro ao alterar produto: " + error);
+                return console.log("Erro ao alterar usuário: " + error);
             }
         });
     },
@@ -71,8 +79,8 @@ module.exports = {
                 return console.log("Registro excluído com sucesso.");
             }
             catch (error) {
-                return console.log("Erro ao deletar produto: " + error);
+                return console.log("Erro ao deletar usuário: " + error);
             }
         });
-    }
+    },
 };
